@@ -96,9 +96,6 @@ export class Drop implements Action{
     const cubesinColumn = s.cubes.filter( (piece) => { 
       return s.pieceInPlay.pieces.some( (p) => p.x === piece.x && Number(piece.y) > Number(p.y))
     })
-    // const cubesBelowPiece = cubesinColumn.filter( (piece) => {
-    //   return Number(piece.y) > Number(lowestPieceInPlay.y)
-    // })
 
     // if there is no piece found send the block to floor
     if (cubesinColumn.length === 0){
@@ -107,7 +104,7 @@ export class Drop implements Action{
       const lowHighDiff =Viewport.CANVAS_HEIGHT - Number(lowestPieceInPlay.y) - Block.HEIGHT 
       // update state to have new moved block to floor
       return {...s,
-      pieceInPlay: {pieces:s.pieceInPlay.pieces.map((p) => ({...p,y: `${Number(p.y) + lowHighDiff - Block.HEIGHT}`}) ) 
+      pieceInPlay: {pieces:s.pieceInPlay.pieces.map((p) => ({...p,y: `${Number(p.y) + lowHighDiff}`}) ) 
       }}
 
     } else{ // pieces found 
@@ -134,11 +131,11 @@ export class Drop implements Action{
 export class Tick implements Action{
   constructor(public readonly elapsed: number){}
   apply(s:State):State{
-    const updatedState = new Move(0,Block.HEIGHT).apply(s) // Move block down
-    const ifCollidedState = checkCollision(updatedState) // check for collisions
+    const ifCollidedState = checkCollision(s) // check for collisions
     const clearedLinesState = lineClearing(ifCollidedState) // clear any completed rows
     const checkGameEnded = checkGameEnd(clearedLinesState) // check if game is over
-    return checkGameEnded;
+    const updatedState = new Move(0,Block.HEIGHT).apply(checkGameEnded) // Move block down
+    return updatedState;
   }
 }
 /**
@@ -161,10 +158,9 @@ export class Reset implements Action{
   constructor(){}
   apply(s:State):State{
     const svg = document.querySelector("#svgCanvas");
-    s.cubes.map((p) =>{
-      const view = document.getElementById(p.id)
-      view ? svg?.removeChild(view) : null
-    })
+    if (svg) {
+      svg.innerHTML = ''; // This removes all elements inside the SVG
+    }
     return {gameEnd: false,cubes: [],objCount: s.objCount+4,pieceInPlay: newRandomBlock(Math.floor(s.blockGenerator),s.objCount), previewPiece: s.previewPiece,blockGenerator: s.blockGenerator, linesCleared: 0,highscore: s.highscore, remove: []  }
   }
 }

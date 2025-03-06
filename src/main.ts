@@ -20,6 +20,11 @@ import { fromEvent, interval, merge } from "rxjs";
 import { map, filter, scan, reduce } from "rxjs/operators";
 import { RNG,attr } from "./utils.ts";
 import { Move,Rotate,Drop, Action, Tick, RNGGen,Reset} from "./action.ts";
+import { Amplify } from 'aws-amplify';
+import awsconfig from './aws-exports';
+
+Amplify.configure(awsconfig);
+
 // import type { Action } from "./action.ts";
 
 

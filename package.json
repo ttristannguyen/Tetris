@@ -16,6 +16,9 @@
     "vitest": "^0.34.1"
   },
   "dependencies": {
+    "@aws-amplify/auth": "^6.11.3",
+    "@aws-amplify/core": "^6.10.3",
+    "aws-amplify": "^6.13.3",
     "rxjs": "^7.8.0"
   }
 }
