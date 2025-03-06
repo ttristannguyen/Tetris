@@ -125,7 +125,7 @@ export function main() {
   const left$ = fromKey("KeyA",new Move(-Block.WIDTH,0) ); // Move left
   const right$ = fromKey("KeyD", new Move(Block.WIDTH,0) ); // move right
   const down$ = fromKey("KeyS", new Move(0,Block.HEIGHT) ); // move down
-  const rotate$ = fromKey("KeyK", new Rotate()  ); // rotate block
+  const rotate$ = fromKey("Period", new Rotate()  ); // rotate block
   const drop$ = fromKey("Space", new Drop() ); // dropping block
   const reset$ = fromKey("KeyR", new Reset() ); // dropping block
 
