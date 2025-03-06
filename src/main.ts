@@ -30,7 +30,7 @@ Amplify.configure(awsconfig);
 
 /** User input */
 
-type Key = "KeyS" | "KeyA" | "KeyD" | "KeyK" | "Space" | "KeyR";
+type Key = "KeyS" | "KeyA" | "KeyD" | "KeyK" | "Space" | "KeyR" | "Period";
 
 type Event = "keydown" | "keyup" | "keypress";
 
